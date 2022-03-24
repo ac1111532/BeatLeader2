@@ -1,0 +1,54 @@
+﻿@model BeatLeader2.Models.Beatmap
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Beatmap</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Walls)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Walls)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bombs)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bombs)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Slash)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Slash)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MapPlays)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MapPlays)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.song)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.song.SongID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.BeatmapID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

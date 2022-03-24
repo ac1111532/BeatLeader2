@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BeatLeader2.Models.Score>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Multiplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Percentage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullCombo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Multiplier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Percentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullCombo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ScoreID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ScoreID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ScoreID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

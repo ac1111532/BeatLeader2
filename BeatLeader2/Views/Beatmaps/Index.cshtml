@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BeatLeader2.Models.Beatmap>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Walls)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bombs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Slash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MapPlays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.song)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Walls)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bombs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MapPlays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.song.SongID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BeatmapID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BeatmapID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BeatmapID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
