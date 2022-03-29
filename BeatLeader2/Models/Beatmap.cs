@@ -13,7 +13,7 @@ namespace BeatLeader2.Models
         public int Slash { get; set; }
         public int MapPlays { get; set; }
 
-        public ICollection<Score> ?Score { get; set; }
+        public ICollection<Score>? Score { get; set; }
         public Song? song { get; set; }
     }
 }

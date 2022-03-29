@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BeatLeader2.Models.Player>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountAge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerHMD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerPlatform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modcount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LevelsBeaten)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountAge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerHMD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerPlatform)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modcount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LevelsBeaten)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlayerID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PlayerID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PlayerID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

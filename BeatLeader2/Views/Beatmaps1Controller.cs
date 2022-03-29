@@ -10,22 +10,23 @@ using BeatLeader2.Models;
 
 namespace BeatLeader2.Views
 {
-    public class BeatmapsController : Controller
+    public class Beatmaps1Controller : Controller
     {
         private readonly BeatLeader2ContextDb _context;
 
-        public BeatmapsController(BeatLeader2ContextDb context)
+        public Beatmaps1Controller(BeatLeader2ContextDb context)
         {
             _context = context;
         }
 
-        // GET: Beatmaps
+        // GET: Beatmaps1
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Beatmap.ToListAsync());
+            var beatLeader2ContextDb = _context.Beatmap.Include(b => b.song);
+            return View(await beatLeader2ContextDb.ToListAsync());
         }
 
-        // GET: Beatmaps/Details/5
+        // GET: Beatmaps1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,6 +35,7 @@ namespace BeatLeader2.Views
             }
 
             var beatmap = await _context.Beatmap
+                .Include(b => b.song)
                 .FirstOrDefaultAsync(m => m.BeatmapID == id);
             if (beatmap == null)
             {
@@ -43,18 +45,19 @@ namespace BeatLeader2.Views
             return View(beatmap);
         }
 
-        // GET: Beatmaps/Create
+        // GET: Beatmaps1/Create
         public IActionResult Create()
         {
+            ViewData["SongID"] = new SelectList(_context.Song, "SongID", "SongID");
             return View();
         }
 
-        // POST: Beatmaps/Create
+        // POST: Beatmaps1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BeatmapID,Notes,Walls,Bombs,Slash,MapPlays")] Beatmap beatmap)
+        public async Task<IActionResult> Create([Bind("BeatmapID,SongID,Notes,Walls,Bombs,Slash,MapPlays")] Beatmap beatmap)
         {
             if (ModelState.IsValid)
             {
@@ -62,10 +65,11 @@ namespace BeatLeader2.Views
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SongID"] = new SelectList(_context.Song, "SongID", "SongID", beatmap.SongID);
             return View(beatmap);
         }
 
-        // GET: Beatmaps/Edit/5
+        // GET: Beatmaps1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,15 +82,16 @@ namespace BeatLeader2.Views
             {
                 return NotFound();
             }
+            ViewData["SongID"] = new SelectList(_context.Song, "SongID", "SongID", beatmap.SongID);
             return View(beatmap);
         }
 
-        // POST: Beatmaps/Edit/5
+        // POST: Beatmaps1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BeatmapID,Notes,Walls,Bombs,Slash,MapPlays")] Beatmap beatmap)
+        public async Task<IActionResult> Edit(int id, [Bind("BeatmapID,SongID,Notes,Walls,Bombs,Slash,MapPlays")] Beatmap beatmap)
         {
             if (id != beatmap.BeatmapID)
             {
@@ -113,10 +118,11 @@ namespace BeatLeader2.Views
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SongID"] = new SelectList(_context.Song, "SongID", "SongID", beatmap.SongID);
             return View(beatmap);
         }
 
-        // GET: Beatmaps/Delete/5
+        // GET: Beatmaps1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,6 +131,7 @@ namespace BeatLeader2.Views
             }
 
             var beatmap = await _context.Beatmap
+                .Include(b => b.song)
                 .FirstOrDefaultAsync(m => m.BeatmapID == id);
             if (beatmap == null)
             {
@@ -134,7 +141,7 @@ namespace BeatLeader2.Views
             return View(beatmap);
         }
 
-        // POST: Beatmaps/Delete/5
+        // POST: Beatmaps1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

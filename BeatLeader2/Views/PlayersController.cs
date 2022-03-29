@@ -10,22 +10,22 @@ using BeatLeader2.Models;
 
 namespace BeatLeader2.Views
 {
-    public class BeatmapsController : Controller
+    public class PlayersController : Controller
     {
         private readonly BeatLeader2ContextDb _context;
 
-        public BeatmapsController(BeatLeader2ContextDb context)
+        public PlayersController(BeatLeader2ContextDb context)
         {
             _context = context;
         }
 
-        // GET: Beatmaps
+        // GET: Players
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Beatmap.ToListAsync());
+            return View(await _context.Player.ToListAsync());
         }
 
-        // GET: Beatmaps/Details/5
+        // GET: Players/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace BeatLeader2.Views
                 return NotFound();
             }
 
-            var beatmap = await _context.Beatmap
-                .FirstOrDefaultAsync(m => m.BeatmapID == id);
-            if (beatmap == null)
+            var player = await _context.Player
+                .FirstOrDefaultAsync(m => m.PlayerID == id);
+            if (player == null)
             {
                 return NotFound();
             }
 
-            return View(beatmap);
+            return View(player);
         }
 
-        // GET: Beatmaps/Create
+        // GET: Players/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Beatmaps/Create
+        // POST: Players/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BeatmapID,Notes,Walls,Bombs,Slash,MapPlays")] Beatmap beatmap)
+        public async Task<IActionResult> Create([Bind("PlayerID,PlayerName,AccountAge,PlayerHMD,PlayerPlatform,Modcount,LevelsBeaten")] Player player)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(beatmap);
+                _context.Add(player);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(beatmap);
+            return View(player);
         }
 
-        // GET: Beatmaps/Edit/5
+        // GET: Players/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace BeatLeader2.Views
                 return NotFound();
             }
 
-            var beatmap = await _context.Beatmap.FindAsync(id);
-            if (beatmap == null)
+            var player = await _context.Player.FindAsync(id);
+            if (player == null)
             {
                 return NotFound();
             }
-            return View(beatmap);
+            return View(player);
         }
 
-        // POST: Beatmaps/Edit/5
+        // POST: Players/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BeatmapID,Notes,Walls,Bombs,Slash,MapPlays")] Beatmap beatmap)
+        public async Task<IActionResult> Edit(int id, [Bind("PlayerID,PlayerName,AccountAge,PlayerHMD,PlayerPlatform,Modcount,LevelsBeaten")] Player player)
         {
-            if (id != beatmap.BeatmapID)
+            if (id != player.PlayerID)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace BeatLeader2.Views
             {
                 try
                 {
-                    _context.Update(beatmap);
+                    _context.Update(player);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BeatmapExists(beatmap.BeatmapID))
+                    if (!PlayerExists(player.PlayerID))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace BeatLeader2.Views
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(beatmap);
+            return View(player);
         }
 
-        // GET: Beatmaps/Delete/5
+        // GET: Players/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace BeatLeader2.Views
                 return NotFound();
             }
 
-            var beatmap = await _context.Beatmap
-                .FirstOrDefaultAsync(m => m.BeatmapID == id);
-            if (beatmap == null)
+            var player = await _context.Player
+                .FirstOrDefaultAsync(m => m.PlayerID == id);
+            if (player == null)
             {
                 return NotFound();
             }
 
-            return View(beatmap);
+            return View(player);
         }
 
-        // POST: Beatmaps/Delete/5
+        // POST: Players/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var beatmap = await _context.Beatmap.FindAsync(id);
-            _context.Beatmap.Remove(beatmap);
+            var player = await _context.Player.FindAsync(id);
+            _context.Player.Remove(player);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BeatmapExists(int id)
+        private bool PlayerExists(int id)
         {
-            return _context.Beatmap.Any(e => e.BeatmapID == id);
+            return _context.Player.Any(e => e.PlayerID == id);
         }
     }
 }
